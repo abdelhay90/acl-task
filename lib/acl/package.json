@@ -2,7 +2,7 @@
   "name": "acl",
   "version": "1.0.0",
   "description": "ACL Library",
-  "main": "lib/index.js",
+  "main": "lib/acl.js",
   "repository": "",
   "author": "Ahmed Abdelhay",
   "license": "ISC"
