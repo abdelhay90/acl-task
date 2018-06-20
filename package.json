@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "npm install -g nodemon babel-cli",
-    "prestart": "",
+    "prestart": "babel-node tools/startMessage.js",
     "start": "set NODE_PATH=./lib && babel-node lib/index.js",
     "dev": "set NODE_PATH=./lib&& nodemon --exec npm start",
     "test": "mocha --compilers js:babel-core/register",
