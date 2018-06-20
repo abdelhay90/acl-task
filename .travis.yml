@@ -6,9 +6,13 @@ branches:
   only:
     - master
 
-before_script:
-  - npm install
-
 script:
   - npm test
   - npm run test:coverage
+
+notifications:
+  email:
+    recipients:
+      - ahmed.abdelhay.90@gmail.com
+    on_success: always # default: change
+

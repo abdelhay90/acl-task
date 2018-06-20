@@ -1,10 +1,11 @@
 {
-  "name": "cognitev-task",
+  "name": "acl-task",
   "version": "1.0.0",
   "description": "implementation of simple acl package task",
   "main": "index.js",
   "scripts": {
     "postinstall": "npm install -g nodemon babel-cli",
+    "prestart": "",
     "start": "set NODE_PATH=./lib && babel-node lib/index.js",
     "dev": "set NODE_PATH=./lib&& nodemon --exec npm start",
     "test": "mocha --compilers js:babel-core/register",
