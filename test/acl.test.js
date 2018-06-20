@@ -5,6 +5,32 @@ import {a, an, check} from '../lib/acl';
 import {PERMISSION_TYPE, ROLE_TYPE, VERBS} from '../lib/acl/constants';
 import {expect} from 'chai';
 
+const mocked = `{
+ admin: {
+  permissions: [
+   {
+    verbName: 'get',
+    type: 0,
+    path: '/users',
+    condition: null
+   }
+  ],
+  _roleName: 'admin'
+ },
+ user: {
+  permissions: [
+   {
+    verbName: 'post',
+    type: 0,
+    path: '/users/:userId/articles',
+    condition: function (params, user) {
+                return user.id === params.userId;
+            }
+   }
+  ],
+  _roleName: 'user'
+ }
+}`;
 describe('ACL', () => {
     acl.createRole(ROLE_TYPE.ADMIN);
     acl.createRole(ROLE_TYPE.USER);
@@ -38,7 +64,7 @@ describe('ACL', () => {
             expect(permission.verbName).to.equal(VERBS.GET);
             expect(permission.type).to.equal(PERMISSION_TYPE.GRANT);
             expect(permission.path).to.equal('/users');
-            expect(acl.getRole(ROLE_TYPE.ADMIN)._permissions.length).to.equal(1);
+            expect(acl.getRole(ROLE_TYPE.ADMIN).permissions.length).to.equal(1);
         });
 
         it('should assign conditional permissions', function () {
@@ -47,7 +73,7 @@ describe('ACL', () => {
             expect(permission.verbName).to.equal(VERBS.POST);
             expect(permission.type).to.equal(PERMISSION_TYPE.GRANT);
             expect(permission.path).to.equal('/users/:userId/articles');
-            expect(acl.getRole(ROLE_TYPE.USER)._permissions.length).to.equal(1);
+            expect(acl.getRole(ROLE_TYPE.USER).permissions.length).to.equal(1);
         });
     });
 
@@ -73,6 +99,12 @@ describe('ACL', () => {
                         {id: '15'}
                     ])
             ).to.equal(true);
+        });
+    });
+
+    describe('to JSON string', function () {
+        it('should return json str', function () {
+            expect(acl.toJSONStr()).to.equal(mocked);
         });
     });
 });

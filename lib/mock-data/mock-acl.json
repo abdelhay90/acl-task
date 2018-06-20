@@ -1,0 +1,29 @@
+{
+  "roles": [
+    {
+      "type": "admin",
+      "permissions": [
+        {
+          "verbName": "GET",
+          "type": "grant",
+          "path": "/users"
+        },
+        {
+          "verbName": "POST",
+          "type": "grant",
+          "path": "/users"
+        }
+      ]
+    },
+    {
+      "type": "user",
+      "permissions": [
+        {
+          "verbName": "GET",
+          "type": "grant",
+          "path": "/users/:userId/articles"
+        }
+      ]
+    }
+  ]
+}
