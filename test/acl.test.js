@@ -80,15 +80,29 @@ describe('ACL', () => {
     describe('Role Checker', function () {
         it('should check if the role is valid', function () {
             expect(check.if(ROLE_TYPE.ADMIN)).to.not.equal(undefined);
+        });
+
+        it('should check if the ADMIN role have get permission', function () {
             expect(check.if(ROLE_TYPE.ADMIN).can(VERBS.GET)).to.not.equal(undefined);
+        });
+
+        it('should not have guest role', function () {
             expect(() => {
                 check.if(ROLE_TYPE.GUEST)
             }).to.throw();
+        });
+
+        it('should check if ADMIN role can post', function () {
             expect(() => {
                 check.if(ROLE_TYPE.ADMIN).can(VERBS.POST)
             }).to.throw();
+        });
+
+        it('should check if ADMIN role has permission for getting users api', function () {
             expect(check.if(ROLE_TYPE.ADMIN).can(VERBS.GET).from('/admins')).to.equal(false);
             expect(check.if(ROLE_TYPE.ADMIN).can(VERBS.GET).from('/users')).to.equal(true);
+        });
+        it('should check if USER role can post on user\'s articles api with condition user id is 15', function () {
             expect(
                 check
                     .if(ROLE_TYPE.USER)
